@@ -177,6 +177,17 @@ class HubiCAuthenticator:
                          params=params,
                          data=payload,
                          authenticated=False)
+        if r.status_code != 200 and self.refresh_token is not None:
+            # if we had a refresh token, try again without it
+            # (might be expired)
+            payload['grant_type']   = 'authorization_code'
+            payload['code']         = self._get_authorization_token(session)
+            payload['redirect_uri'] = self.redirect_uri
+            r = session.post("https://api.hubic.com/oauth/token",
+                             params=params,
+                             data=payload,
+                             authenticated=False)
+
         if r.status_code != 200:
             raise AuthorizationFailure()
 
