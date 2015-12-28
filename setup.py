@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name = "openstacksdk-hubic",
-    version = "0.1",
+    version = "0.2",
     packages = ['hubic'],
     description = "HubiC authentication interface compatible with the Python OpenStack SDK",
     author = "Laurent Duchesne",
